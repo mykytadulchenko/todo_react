@@ -7,10 +7,11 @@ const ListItem = ({itemData, checkItem, removeItem}) => {
             <div className={styles.check__body}>
                 <i className="fa-regular fa-square fa-sm"></i>
             </div>
-            {itemData.isFinished &&
+            {itemData.isFinished ?
                 <div className={styles.check__active}>
                     <i className="fa-solid fa-check fa-sm"></i>
                 </div>
+                : null
             }
         </div>
         <p>{itemData.value}</p>
