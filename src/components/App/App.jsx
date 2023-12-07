@@ -1,14 +1,13 @@
-import Controls from "../Controls/Controls"
-import Filters from "../Filters/Filters"
-import List from "../List/List"
+import styles from './App.module.css'
+import Store from "../../Store/Store"
+import TodoList from '../TodoList/TodoList'
 
 function App() {
+  const store = new Store()
   return (
-    <div className="App">
-      <h1 className="title">Todo List</h1>
-      <Controls/>
-      <List/>
-      <Filters/>
+    <div className={styles.app}>
+      <h1 className={styles.title}>Todo List</h1>
+      <TodoList store={store}/>
     </div>
   )
 }

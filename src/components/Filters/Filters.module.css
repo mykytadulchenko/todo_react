@@ -1,0 +1,30 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 0 5px;
+  font-size: 0.8em;
+  color: #fafafa;
+}
+
+.footer button {
+  display: block;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: #fafafa;
+  cursor: pointer;
+}
+
+.filters {
+  align-self: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.hidden {
+  transform: translateY(200%);
+}

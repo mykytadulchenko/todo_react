@@ -1,14 +1,14 @@
-import React from 'react'
+import styles from './Controls.module.css'
 
-const Controls = () => {
+const Controls = ({addItem, selectAll}) => {
+  
   return (
-    <div className='controls'>
-        <button>
-            <i class="fa-solid fa-check-double"></i>
-        </button>
-        <input type="text" placeholder='Input task...'/>
+    <div className={styles.controls}>
+      <button onClick={selectAll}>
+        <i className="fa-solid fa-check-double"></i>
+      </button>
+      <input type="text" placeholder='Input task...' onKeyUp={addItem}/>
     </div>
   )
 }
-
 export default Controls
