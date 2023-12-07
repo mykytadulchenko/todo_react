@@ -19,6 +19,7 @@ const TodoList = ({store}) => {
   }
 
   data.forEach(el => el.isFinished ? activeCounter : activeCounter++)
+  
   const addItem = (e) => {
     if(e.key !== 'Enter') return
     const newData = [...data, {id: data.at(-1)?.id + 1 || 0, value: e.target.value, isFinished: false}]
@@ -31,7 +32,7 @@ const TodoList = ({store}) => {
     const newData = data.map(el => ({...el, isFinished: selectAll}))
     store.setTasks(newData)
     setData(newData)
-    setSelectAll(false)
+    setSelectAll(!selectAll)
   }
 
   const checkItem = (item) => {
@@ -69,4 +70,5 @@ const TodoList = ({store}) => {
     </div>
   )
 }
+
 export default TodoList
