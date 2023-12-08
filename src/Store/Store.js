@@ -1,4 +1,6 @@
-export default class Store {
+import { create } from "zustand"
+
+class Store {
     constructor() {
        this.getTasks()
     }
@@ -12,3 +14,19 @@ export default class Store {
         localStorage.setItem('todos', JSON.stringify(sortedData))
     }
 }
+
+const store = new Store()
+
+const useStore = create((set) => ({
+    data: store.data,
+    filter: null,
+    selectAll: true,
+    setData: (val) => {
+        set(state => ({data: val}))
+        store.setTasks(val)
+    },
+    setFilter: (val) => set(state => ({filter: val})),
+    setSelectAll: () => set(state => ({selectAll: !state.selectAll}))
+}))
+
+export default useStore

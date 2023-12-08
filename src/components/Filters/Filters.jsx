@@ -1,7 +1,14 @@
+import { useRef } from 'react'
 import styles from './Filters.module.css'
 
 const Filters = ({setFilter, activeCounter, isAnyFinished, clearSelected}) => {
-  const changeFilter = (e) => setFilter(e.target.dataset.filter)
+  const changeFilter = (e) => {
+    if(active.current) active.current.className = null
+    active.current = e.target
+    setFilter(e.target.dataset.filter)
+    e.target.className = styles.active__btn
+  }
+  const active = useRef()
   return (
     <div className={styles.footer}>
       <div className={styles.taskCounter}>

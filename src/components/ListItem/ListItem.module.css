@@ -67,15 +67,15 @@
     text-decoration: line-through;
   }
   
-  .list__item.editing {
+  .editing {
     padding: 5px 10px;
   }
   
-  .list__item.editing div {
+  .editing div {
     width: 100%;
   }
   
-  .list__item.editing input {
+  .editing input {
     padding: 5px;
     height: 100%;
     width: 100%;

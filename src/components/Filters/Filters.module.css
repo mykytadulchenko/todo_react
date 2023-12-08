@@ -3,7 +3,8 @@
   justify-content: space-between;
   flex-wrap: wrap;
   width: 100%;
-  padding: 0 5px;
+  height: 25px;
+  padding: 0 5px 5px;
   font-size: 0.8em;
   color: #fafafa;
 }
@@ -27,4 +28,10 @@
 
 .hidden {
   transform: translateY(200%);
+}
+
+.filters .active__btn {
+  padding: 2px;
+  border: 1px solid #fafafa;
+  border-radius: 4px;
 }
