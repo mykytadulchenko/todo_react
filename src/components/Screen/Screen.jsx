@@ -1,11 +1,11 @@
 import ListItem from '../ListItem/ListItem'
 import styles from './Screen.module.css'
 
-const Screen = ({data, checkItem, removeItem}) => {
+const Screen = ({data}) => {
   return (
     <ul className={styles.screen}>
       {data.map(item => 
-        <ListItem key={item.id} itemData={item} checkItem={checkItem} removeItem = {removeItem}/>
+        <ListItem key={item.id} itemData={item}/>
       )}
     </ul>
   )

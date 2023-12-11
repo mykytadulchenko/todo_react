@@ -1,21 +1,38 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import actions from '../../Store/actions'
 import styles from './ListItem.module.css'
-import useStore from '../../Store/Store'
 
-const ListItem = ({itemData, checkItem, removeItem}) => {
+const ListItem = ({itemData}) => {
     const [isEditing, setIsEditing] = useState(false)
     const [value, setValue] = useState(itemData.value)
-    const {data, setData} = useStore()
+    const data = useSelector(state => state.data)
+    const dispatch = useDispatch()
+
+     const checkItem = (item) => {
+        item = {...item, isFinished: !item.isFinished}
+        const newData = data.filter(el => el.id !== item.id)
+        newData.push(item)
+        dispatch(actions.set_data(newData))
+      }
+    
+      const removeItem = (item) => {
+        const newData = data.filter(el => el.id !== item.id)
+        dispatch(actions.set_data(newData))
+      }
+
     const edit = (e) => {
         if(e.key !== 'Enter') return
         const newItemData = {...itemData, value: e.target.value}
         const newData = data.filter(el => el.id !== itemData.id)
         newData.push(newItemData)
-        setData(newData)
+        dispatch(actions.set_data(newData))
         setIsEditing(false)
     } 
+
     const rootClass = [styles.list__item]
     if(isEditing) rootClass.push(styles.editing)
+    
   return (
     <li className={rootClass.join(' ')}>
         {isEditing ?

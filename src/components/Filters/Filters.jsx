@@ -1,14 +1,26 @@
 import { useRef } from 'react'
 import styles from './Filters.module.css'
+import { useDispatch, useSelector } from 'react-redux'
+import actions from '../../Store/actions'
 
-const Filters = ({setFilter, activeCounter, isAnyFinished, clearSelected}) => {
+const Filters = ({activeCounter, isAnyFinished}) => {
+  const data = useSelector(state => state.data)
+  const dispatch = useDispatch()
+
+  const clearSelected = () => {
+    const newData = data.filter(el => !el.isFinished)
+    dispatch(actions.set_data(newData))
+  }
+
   const changeFilter = (e) => {
     if(active.current) active.current.className = null
     active.current = e.target
-    setFilter(e.target.dataset.filter)
+    dispatch(actions.set_filter(e.target.dataset.filter))
     e.target.className = styles.active__btn
   }
+
   const active = useRef()
+
   return (
     <div className={styles.footer}>
       <div className={styles.taskCounter}>

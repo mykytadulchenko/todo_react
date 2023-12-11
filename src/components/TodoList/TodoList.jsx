@@ -1,12 +1,14 @@
 import { useMemo } from 'react'
-import useStore from '../../Store/Store'
 import Controls from '../Controls/Controls'
 import Filters from '../Filters/Filters'
 import Screen from '../Screen/Screen'
 import styles from './TodoList.module.css'
+import { useSelector } from 'react-redux'
 
 const TodoList = () => {
-  const {data, setData, filter, setFilter, selectAll, setSelectAll} = useStore()
+  const data = useSelector(state => state.data)
+  const filter = useSelector(state => state.filter)
+
   const activeCounter = data.reduce((acc, el) => el.isFinished ? acc : ++acc, 0)
 
   const filteredData = useMemo(() => {
@@ -17,48 +19,13 @@ const TodoList = () => {
   }
   }, [filter, data])
 
-  const addItem = (e) => {
-    if(e.key !== 'Enter') return
-    const newData = [...data, {id: data.at(-1)?.id + 1 || 0, value: e.target.value, isFinished: false}]
-    setData(newData)
-    e.target.value = ''
-  }
-
-  const selectAllHandler = (e) => {
-    const newData = data.map(el => ({...el, isFinished: selectAll}))
-    setData(newData)
-    setSelectAll()
-  }
-
-  const checkItem = (item) => {
-    item = {...item, isFinished: !item.isFinished}
-    const newData = data.filter(el => el.id !== item.id)
-    newData.push(item)
-    setData(newData)
-  }
-
-  const removeItem = (item) => {
-    const newData = data.filter(el => el.id !== item.id)
-    setData(newData)
-  }
-
-  const clearSelected = () => {
-    const newData = data.filter(el => !el.isFinished)
-    setData(newData)
-  }
-
   return (
     <div className={styles.list}>
-        <Controls addItem={addItem} selectAll={selectAllHandler}/>
-        <Screen data={filteredData} checkItem={checkItem} removeItem={removeItem}/>
+        <Controls/>
+        <Screen data={filteredData}/>
         {data.length > 0 ?
-        <Filters 
-          setFilter={setFilter} 
-          activeCounter={activeCounter} 
-          isAnyFinished={data.length !== activeCounter}
-          clearSelected={clearSelected}
-          />
-          : null}
+        <Filters activeCounter={activeCounter} isAnyFinished={data.length !== activeCounter}/>
+        : null}
     </div>
   )
 }

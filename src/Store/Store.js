@@ -1,4 +1,4 @@
-import { create } from "zustand"
+import { createStore } from "redux"
 
 class Store {
     constructor() {
@@ -15,18 +15,27 @@ class Store {
     }
 }
 
-const store = new Store()
+const storage = new Store()
 
-const useStore = create((set) => ({
-    data: store.data,
+const initialState = {
+    data: storage.data,
     filter: null,
-    selectAll: true,
-    setData: (val) => {
-        set(state => ({data: val}))
-        store.setTasks(val)
-    },
-    setFilter: (val) => set(state => ({filter: val})),
-    setSelectAll: () => set(state => ({selectAll: !state.selectAll}))
-}))
+    selectAll: true
+}
 
-export default useStore
+const reducer = (state = initialState, action) => {
+    switch(action.type) {
+        case 'SET_DATA':
+            storage.setTasks(action.payload)
+            return {...state, data: action.payload}
+        case 'SET_FILTER':
+            return {...state, filter: action.payload}
+        case 'SELECT_ALL':
+            return {...state, selectAll: !state.selectAll}
+        default: return state
+    }
+}
+
+const store = createStore(reducer)
+
+export default store
