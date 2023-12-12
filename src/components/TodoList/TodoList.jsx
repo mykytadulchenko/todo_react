@@ -4,10 +4,11 @@ import Filters from '../Filters/Filters'
 import Screen from '../Screen/Screen'
 import styles from './TodoList.module.css'
 import { useSelector } from 'react-redux'
+import { filterSelector, getDataSelector } from '../../Store/selectors'
 
 const TodoList = () => {
-  const data = useSelector(state => state.data)
-  const filter = useSelector(state => state.filter)
+  const data = useSelector(getDataSelector)
+  const filter = useSelector(filterSelector)
 
   const activeCounter = data.reduce((acc, el) => el.isFinished ? acc : ++acc, 0)
 

@@ -1,24 +1,16 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import actions from '../../Store/actions'
 import styles from './Controls.module.css'
 
 const Controls = () => {
-  const data = useSelector(state => state.data)
-  const selectAll = useSelector(state => state.selectAll)
   const dispatch = useDispatch()
   
   const addItem = (e) => {
     if(e.key !== 'Enter') return
-    const newData = [...data, {id: data.at(-1)?.id + 1 || 0, value: e.target.value, isFinished: false}]
-    dispatch(actions.set_data(newData))
+    dispatch(actions.addItem(e.target.value))
     e.target.value = ''
   }
-
-  const selectAllHandler = (e) => {
-    const newData = data.map(el => ({...el, isFinished: selectAll}))
-    dispatch(actions.set_data(newData))
-    dispatch(actions.select_all())
-  }
+  const selectAllHandler = () => dispatch(actions.selectAll())
   
   return (
     <div className={styles.controls}>

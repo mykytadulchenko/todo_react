@@ -1,7 +1,11 @@
 const actions = {
-    set_data: (value) => ({type: 'SET_DATA', payload: value}),
-    set_filter: (value) => ({type: 'SET_FILTER', payload: value}),
-    select_all: () => ({type: 'SELECT_ALL'})
+    setFilter: (value) => ({type: 'SET_FILTER', payload: value}),
+    selectAll: () => ({type: 'SELECT_ALL'}),
+    removeSelected: () => ({type: 'REMOVE_SELECTED'}),
+    addItem: (value) => ({type: 'ADD_ITEM', payload: value}),
+    checkItem: (item) => ({type: 'CHECK_ITEM', payload: item}),
+    removeItem: (item) => ({type: 'REMOVE_ITEM', payload: item}),
+    editItem: (item, value) => ({type: 'EDIT_ITEM', payload: {item, value}})
 }
 
 export default actions
